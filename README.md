@@ -2,9 +2,32 @@
 
 ## 專題摘要 (Abstract)
 
-本專題開發了一套具備資訊安全機制的電子公文傳輸系統。系統採用 C# 語言與 .NET 8.0 框架，實作了基於 TCP/IP 網路協定的傳輸軟體。核心整合了 **AES (Advanced Encryption Standard) 進階加密標準**，確保公文檔案在網路傳輸過程中的安全性，達成電子公文「無紙化」與「高機密性」的雙重目標。
+本專題開發了一套具備資訊安全機制的電子公文傳輸系統。系統採用 C# 語言與 .NET 框架，實作了基於 TCP/IP 網路協定的傳輸軟體。核心整合了 **AES (Advanced Encryption Standard) 進階加密標準**，確保公文檔案在網路傳輸過程中的安全性，達成電子公文「無紙化」與「高機密性」的雙重目標。
+
+系統提供兩種使用方式：
+- **主控台版本**：傳統命令列介面，適合伺服器環境
+- **網頁版本**：現代化 HTML 介面，提供更友善的使用體驗
 
 ## 系統架構
+
+### 🌐 Web 版本（推薦使用）
+
+**SecureFileTransferWeb** - 基於 ASP.NET Core 的 Web 應用程式
+
+提供完整的網頁介面，包含：
+- **首頁**：系統簡介與功能導覽
+- **發送端頁面**：檔案選擇、加密與傳送
+- **接收端頁面**：監聽設定、接收狀態與檔案清單
+
+**特色：**
+- 響應式設計，支援各種裝置
+- 即時狀態更新
+- 直觀的使用者介面
+- 無需命令列操作
+
+詳細說明請參閱：[SecureFileTransferWeb/README.md](SecureFileTransferWeb/README.md)
+
+### 💻 主控台版本
 
 系統分為兩個獨立應用程式：
 
@@ -56,9 +79,32 @@
 
 ## 系統需求
 
-- **.NET SDK 8.0** 或更新版本
+- **.NET SDK 10.0** 或更新版本
 - 支援 TCP/IP 網路的作業系統（Windows、Linux、macOS）
 - 網路連線（發送端與接收端需能互相通訊）
+- 現代化瀏覽器（用於 Web 版本：Chrome、Firefox、Edge、Safari）
+
+## 快速開始
+
+### 🌐 使用 Web 版本（推薦）
+
+1. **啟動 Web 伺服器**
+```bash
+cd SecureFileTransferWeb
+dotnet run
+```
+
+2. **開啟瀏覽器**
+```
+http://localhost:5000
+```
+
+3. **操作步驟**
+   - 點選「接收端」→ 設定 Port (8000) → 啟動接收
+   - 開啟新分頁 → 點選「發送端」→ 選擇檔案 → 加密並發送
+   - 觀察接收狀態與已接收檔案清單
+
+### 💻 使用主控台版本
 
 ## 安裝與建置
 
@@ -195,12 +241,23 @@ diff test_files/test_document.txt SecureFileReceiver/received/recv_*_test_docume
 
 ```
 SecureFileTransfer.sln
-├── SecureFileSender/              # 發送端專案
-│   ├── Program.cs                 # 主程式（發送端邏輯）
+├── SecureFileTransferWeb/         # Web 版本（推薦）
+│   ├── wwwroot/                   # 靜態網頁檔案
+│   │   ├── index.html            # 首頁
+│   │   ├── sender.html           # 發送端頁面
+│   │   ├── receiver.html         # 接收端頁面
+│   │   ├── css/style.css         # 樣式表
+│   │   └── js/                   # JavaScript 檔案
+│   ├── Controllers/              # API 控制器
+│   ├── Services/                 # 業務邏輯服務
+│   └── README.md                 # Web 版本說明文件
+│
+├── SecureFileSender/              # 主控台發送端
+│   ├── Program.cs                # 主程式（發送端邏輯）
 │   ├── AesEncryption.cs          # AES 加密模組
 │   └── SecureFileSender.csproj   # 專案檔
 │
-└── SecureFileReceiver/            # 接收端專案
+└── SecureFileReceiver/            # 主控台接收端
     ├── Program.cs                 # 主程式（接收端邏輯）
     ├── AesEncryption.cs          # AES 解密模組
     └── SecureFileReceiver.csproj # 專案檔
@@ -254,6 +311,23 @@ public static byte[] EncryptFile(string inputFilePath)
 - ✅ 解密後檔案內容與原始檔案完全一致
 - ✅ 無資料損毀或雜訊
 - ✅ 傳輸過程穩定可靠
+- ✅ Web 介面運作正常，提供良好的使用體驗
+
+## 系統截圖
+
+### 網頁版介面
+
+**首頁**
+
+![首頁](https://github.com/user-attachments/assets/7d534dbc-8f7b-4892-b8fb-b7eb3691ffec)
+
+**發送端頁面**
+
+![發送端](https://github.com/user-attachments/assets/df46b18d-6898-4177-a35f-4b16cf06a0e5)
+
+**接收端頁面**
+
+![接收端](https://github.com/user-attachments/assets/0bacb7a5-dc6b-4da4-bb48-3a5267ad357a)
 
 ## 未來展望
 
@@ -268,7 +342,7 @@ public static byte[] EncryptFile(string inputFilePath)
 - 完善公文稽核軌跡
 
 ### 3. 使用者介面改進
-- 開發圖形化介面 (GUI)
+- ✅ 已開發 HTML 網頁介面 (SecureFileTransferWeb)
 - 提供更友善的操作體驗
 - 支援批次檔案傳輸
 
