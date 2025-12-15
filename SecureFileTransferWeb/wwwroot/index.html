@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>電子公文安全傳輸系統 - 首頁</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔐 電子公文安全傳輸系統</h1>
+            <p class="subtitle">Secure Document Transfer System with AES Encryption</p>
+        </header>
+
+        <main>
+            <div class="intro-section">
+                <h2>系統簡介</h2>
+                <p>本系統採用 <strong>AES-128 進階加密標準</strong>，確保公文檔案在網路傳輸過程中的安全性，達成電子公文「無紙化」與「高機密性」的雙重目標。</p>
+                
+                <div class="features">
+                    <div class="feature-card">
+                        <h3>🔒 AES 加密</h3>
+                        <p>128-bit 金鑰加密，國際公認安全標準</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🌐 TCP/IP 傳輸</h3>
+                        <p>可靠的網路傳輸協定，確保資料完整性</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📄 無紙化作業</h3>
+                        <p>節能減碳，提升行政效率</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-section">
+                <h2>請選擇操作模式</h2>
+                <div class="action-buttons">
+                    <a href="/sender.html" class="btn btn-primary">
+                        <span class="icon">📤</span>
+                        <span class="text">發送端 (Sender)</span>
+                        <span class="desc">加密並發送檔案</span>
+                    </a>
+                    <a href="/receiver.html" class="btn btn-secondary">
+                        <span class="icon">📥</span>
+                        <span class="text">接收端 (Receiver)</span>
+                        <span class="desc">接收並解密檔案</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="tech-section">
+                <h2>核心技術</h2>
+                <div class="tech-details">
+                    <div class="tech-item">
+                        <h4>AES 對稱式加密</h4>
+                        <ul>
+                            <li>演算法：AES (Advanced Encryption Standard)</li>
+                            <li>金鑰長度：128 位元 (16 Bytes)</li>
+                            <li>模式：CBC (Cipher Block Chaining)</li>
+                            <li>填充：PKCS7</li>
+                        </ul>
+                    </div>
+                    <div class="tech-item">
+                        <h4>TCP Socket 網路通訊</h4>
+                        <ul>
+                            <li>協定：TCP/IP</li>
+                            <li>架構：主從式 (Client-Server)</li>
+                            <li>可靠性：確保封包不遺失、不錯亂</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>⚠️ <strong>安全提示：</strong>本系統為教育示範用途，實際部署時應使用更完善的金鑰管理機制</p>
+            <p>&copy; 2025 電子公文安全傳輸系統</p>
+        </footer>
+    </div>
+</body>
+</html>

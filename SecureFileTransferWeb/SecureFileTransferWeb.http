@@ -1,0 +1,6 @@
+@SecureFileTransferWeb_HostAddress = http://localhost:5267
+
+GET {{SecureFileTransferWeb_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

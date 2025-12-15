@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>接收端 - 電子公文安全傳輸系統</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📥 接收端 (Receiver)</h1>
+            <p class="subtitle">監聽 Port → 接收資料流 → AES 解密 → 還原檔案 → 存入硬碟</p>
+            <a href="/index.html" class="back-link">← 返回首頁</a>
+        </header>
+
+        <main>
+            <div class="form-section">
+                <h2>接收設定</h2>
+                <form id="receiverForm">
+                    <div class="form-group">
+                        <label for="listenPort">監聽 Port：</label>
+                        <input type="number" id="listenPort" name="listenPort" 
+                               value="8000" placeholder="例如: 8000" min="1" max="65535" required>
+                        <span class="hint">預設為 8000，需與發送端設定一致</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="saveDirectory">檔案儲存目錄：</label>
+                        <input type="text" id="saveDirectory" name="saveDirectory" 
+                               value="./received" placeholder="例如: ./received" required>
+                        <span class="hint">接收的檔案將儲存於此目錄</span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-large" id="startBtn">
+                        ▶️ 啟動接收
+                    </button>
+                    <button type="button" class="btn btn-danger btn-large" id="stopBtn" style="display: none;">
+                        ⏹️ 停止接收
+                    </button>
+                </form>
+            </div>
+
+            <div class="status-section">
+                <h2>接收狀態</h2>
+                <div id="statusIndicator" class="status-indicator status-idle">
+                    <span class="status-dot"></span>
+                    <span class="status-text">閒置中</span>
+                </div>
+                <div id="statusLog" class="status-log">
+                    <p class="status-ready">⏳ 等待啟動...</p>
+                </div>
+            </div>
+
+            <div class="received-files-section">
+                <h2>已接收檔案</h2>
+                <div id="receivedFiles" class="received-files">
+                    <p class="empty-message">尚未接收任何檔案</p>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3>使用說明</h3>
+                <ol>
+                    <li>輸入要監聽的 Port（預設 8000）</li>
+                    <li>設定檔案儲存目錄（預設 ./received）</li>
+                    <li>點選「啟動接收」按鈕，系統將：
+                        <ul>
+                            <li>啟動 TCP 伺服器監聽指定 Port</li>
+                            <li>等待發送端建立連線</li>
+                            <li>接收加密的資料流</li>
+                            <li>使用 AES-128 演算法解密資料</li>
+                            <li>還原原始檔案並儲存</li>
+                        </ul>
+                    </li>
+                    <li>系統會顯示接收狀態與已接收的檔案清單</li>
+                    <li>接收的檔案會以「recv_時間戳記_原檔名」格式儲存</li>
+                </ol>
+            </div>
+        </main>
+
+        <footer>
+            <p>⚠️ <strong>安全提示：</strong>請確保在可信任的網路環境中開啟接收服務</p>
+        </footer>
+    </div>
+
+    <script src="/js/receiver.js"></script>
+</body>
+</html>
