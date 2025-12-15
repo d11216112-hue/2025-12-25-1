@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>發送端 - 電子公文安全傳輸系統</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📤 發送端 (Sender)</h1>
+            <p class="subtitle">選取檔案 → 執行 AES 加密 → 建立 TCP 連線 → 發送加密資料流</p>
+            <a href="/index.html" class="back-link">← 返回首頁</a>
+        </header>
+
+        <main>
+            <div class="form-section">
+                <h2>傳輸設定</h2>
+                <form id="senderForm">
+                    <div class="form-group">
+                        <label for="receiverIp">接收端 IP 位址：</label>
+                        <input type="text" id="receiverIp" name="receiverIp" 
+                               value="127.0.0.1" placeholder="例如: 127.0.0.1" required>
+                        <span class="hint">本機測試請使用 127.0.0.1</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="receiverPort">接收端 Port：</label>
+                        <input type="number" id="receiverPort" name="receiverPort" 
+                               value="8000" placeholder="例如: 8000" min="1" max="65535" required>
+                        <span class="hint">預設為 8000</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fileInput">選取要傳送的檔案：</label>
+                        <input type="file" id="fileInput" name="file" required>
+                        <span class="hint">支援所有檔案格式（.txt, .jpg, .pdf, .doc 等）</span>
+                    </div>
+
+                    <div id="fileInfo" class="file-info" style="display: none;">
+                        <h3>檔案資訊</h3>
+                        <p><strong>檔案名稱：</strong> <span id="fileName"></span></p>
+                        <p><strong>檔案大小：</strong> <span id="fileSize"></span></p>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-large">
+                        🔐 加密並發送
+                    </button>
+                </form>
+            </div>
+
+            <div class="status-section">
+                <h2>傳輸狀態</h2>
+                <div id="statusLog" class="status-log">
+                    <p class="status-ready">⏳ 等待操作...</p>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3>使用說明</h3>
+                <ol>
+                    <li>確保接收端已啟動並處於監聽狀態</li>
+                    <li>輸入接收端的 IP 位址（本機測試使用 127.0.0.1）</li>
+                    <li>輸入接收端監聽的 Port（預設 8000）</li>
+                    <li>點選「選取檔案」按鈕，瀏覽並選取要傳送的公文檔案</li>
+                    <li>點選「加密並發送」按鈕，系統將自動執行以下步驟：
+                        <ul>
+                            <li>讀取檔案的二進位資料</li>
+                            <li>使用 AES-128 演算法加密檔案</li>
+                            <li>建立 TCP 連線至接收端</li>
+                            <li>傳送加密後的資料流</li>
+                        </ul>
+                    </li>
+                    <li>等待系統提示「發送成功」訊息</li>
+                </ol>
+            </div>
+        </main>
+
+        <footer>
+            <p>⚠️ <strong>安全提示：</strong>請確保在安全的網路環境中使用本系統</p>
+        </footer>
+    </div>
+
+    <script src="/js/sender.js"></script>
+</body>
+</html>
