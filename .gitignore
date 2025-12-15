@@ -13,6 +13,7 @@ received_files/
 *.log
 *.dll
 *.pdb
+demo_output.txt
 
 # OS files
 .DS_Store
