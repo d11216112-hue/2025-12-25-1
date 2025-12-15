@@ -7,10 +7,19 @@ namespace SecureFileTransfer
     /// <summary>
     /// AES 加密解密模組
     /// 提供 AES-128 對稱式加密功能
+    /// 
+    /// 安全性注意事項 (Security Notice):
+    /// 此實作使用硬編碼的金鑰與 IV，僅供教育與示範用途。
+    /// 實際部署時，應使用以下安全措施：
+    /// 1. 使用安全的金鑰管理系統 (Key Management System)
+    /// 2. 實作金鑰交換協定 (如 Diffie-Hellman)
+    /// 3. 定期輪替金鑰
+    /// 4. 使用環境變數或安全配置儲存金鑰
     /// </summary>
     public class AesEncryption
     {
         // 128-bit (16 bytes) 金鑰 - 發送端與接收端必須相同
+        // ⚠️ 警告：此為示範用金鑰，實際應用中請勿使用硬編碼金鑰
         private static readonly byte[] Key = new byte[16]
         {
             0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08,

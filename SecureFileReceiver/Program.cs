@@ -54,6 +54,9 @@ namespace SecureFileReceiver
                         // 接受客戶端連線
                         using (TcpClient client = listener.AcceptTcpClient())
                         {
+                            // 設定讀取超時 (30 秒)
+                            client.ReceiveTimeout = 30000;
+                            
                             string clientAddress = ((IPEndPoint)client.Client.RemoteEndPoint!).Address.ToString();
                             Console.WriteLine($">>> 收到來自 {clientAddress} 的連線");
 
