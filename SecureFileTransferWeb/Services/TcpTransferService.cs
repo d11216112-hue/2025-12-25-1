@@ -58,6 +58,7 @@ namespace SecureFileTransferWeb.Services
         private string _saveDirectory = "./received";
         private readonly List<ReceivedFileInfo> _receivedFiles = new List<ReceivedFileInfo>();
         private readonly Queue<StatusMessage> _messageQueue = new Queue<StatusMessage>();
+        private readonly object _lock = new object(); // Add lock for thread safety
 
         public bool IsListening => _isListening;
         public bool IsReceiving => _isReceiving;
@@ -132,17 +133,11 @@ namespace SecureFileTransferWeb.Services
                 {
                     if (_listener == null) break;
 
-                    // 等待連線 (非阻塞式檢查)
-                    if (!_listener.Pending())
-                    {
-                        await Task.Delay(100, cancellationToken);
-                        continue;
-                    }
-
                     _isReceiving = true;
-                    AddMessage("📡 偵測到連線請求", "info");
+                    AddMessage("📡 等待連線...", "info");
 
-                    TcpClient client = await _listener.AcceptTcpClientAsync();
+                    // Use AcceptTcpClientAsync with cancellation token for better performance
+                    TcpClient client = await _listener.AcceptTcpClientAsync(cancellationToken);
                     AddMessage("✓ 連線已建立", "success");
 
                     await HandleClientAsync(client, cancellationToken);
@@ -171,8 +166,9 @@ namespace SecureFileTransferWeb.Services
                 using (client)
                 using (NetworkStream stream = client.GetStream())
                 {
-                    // 設定接收超時
-                    stream.ReadTimeout = 30000; // 30 秒
+                    // 設定接收超時 (30 秒)
+                    const int ReceiveTimeoutMs = 30000;
+                    stream.ReadTimeout = ReceiveTimeoutMs;
 
                     // 1. 讀取檔案名稱長度
                     byte[] fileNameLengthBytes = new byte[4];

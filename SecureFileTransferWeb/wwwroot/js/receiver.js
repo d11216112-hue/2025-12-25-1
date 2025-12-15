@@ -186,7 +186,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // 頁面卸載時停止服務
     window.addEventListener('beforeunload', function() {
         if (isListening) {
-            fetch('/api/receiver/stop', { method: 'POST' });
+            // Use sendBeacon for reliable request during page unload
+            const blob = new Blob([JSON.stringify({})], { type: 'application/json' });
+            navigator.sendBeacon('/api/receiver/stop', blob);
         }
     });
 });
