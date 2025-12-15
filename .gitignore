@@ -1,0 +1,26 @@
+# .NET build artifacts
+bin/
+obj/
+*.user
+*.suo
+*.userprefs
+.vs/
+
+# Test files and received files
+test_files/
+received/
+received_files/
+*.log
+*.dll
+*.pdb
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
